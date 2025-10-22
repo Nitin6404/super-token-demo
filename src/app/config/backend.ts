@@ -22,7 +22,8 @@ export const backendConfig = (): TypeInput => {
       websiteBasePath: "/auth",
     },
     supertokens: {
-      connectionURI: process.env.SUPERTOKENS_CONNECTION_URI || "https://try.supertokens.io",
+      connectionURI:
+        process.env.SUPERTOKENS_CONNECTION_URI || "https://try.supertokens.io",
       apiKey: process.env.SUPERTOKENS_API_KEY,
     },
     recipeList: [
@@ -38,8 +39,8 @@ export const backendConfig = (): TypeInput => {
 export function ensureSuperTokensInit() {
   try {
     SuperTokens.init(backendConfig());
-  } catch (err: any) {
-    const msg = String(err?.message || "");
+  } catch (err: unknown) {
+    const msg = String((err as Error).message || "");
     if (!/already initiali/i.test(msg)) {
       throw err;
     }

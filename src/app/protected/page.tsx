@@ -10,7 +10,7 @@ export default function ProtectedPage() {
       try {
         const s = await Session.getAccessTokenPayloadSecurely();
         // If session exists, getUserId from accessToken payload or call protected API.
-        setUserId((s as any)?.userId || "signed-in");
+        setUserId(s?.sub || "signed-in");
       } catch {
         setUserId(null);
       }

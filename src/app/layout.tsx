@@ -5,12 +5,22 @@ import SuperTokensReact from "supertokens-auth-react";
 import { SuperTokensWrapper } from "supertokens-auth-react";
 import { frontendConfig } from "./config/frontend";
 
-if (typeof window !== "undefined" && !(globalThis as any).__supertokens_initialized) {
+if (
+  typeof window !== "undefined" &&
+  !(globalThis as unknown as { __supertokens_initialized: boolean })
+    .__supertokens_initialized
+) {
   SuperTokensReact.init(frontendConfig());
-  (globalThis as any).__supertokens_initialized = true;
+  (
+    globalThis as unknown as { __supertokens_initialized: boolean }
+  ).__supertokens_initialized = true;
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body>
