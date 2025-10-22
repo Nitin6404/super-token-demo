@@ -1,16 +1,19 @@
 // src/app/api/auth/[[...path]]/route.ts
 import { getAppDirRequestHandler } from "supertokens-node/nextjs";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { ensureSuperTokensInit } from "@/app/config/backend";
 
 ensureSuperTokensInit();
 
-const handleCall = getAppDirRequestHandler(NextResponse);
+const handleCall = getAppDirRequestHandler();
 
 export async function GET(req: NextRequest) {
   const res = await handleCall(req);
   if (!res.headers.has("Cache-Control")) {
-    res.headers.set("Cache-Control", "no-cache, no-store, max-age=0, must-revalidate");
+    res.headers.set(
+      "Cache-Control",
+      "no-cache, no-store, max-age=0, must-revalidate"
+    );
   }
   return res;
 }
